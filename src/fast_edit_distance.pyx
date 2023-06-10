@@ -19,17 +19,16 @@ cpdef int edit_distance(str word1, str word2, max_ed=None, bint check_mat=False)
     - check_mat: check the dynamic programing process for trouble shooting
 
     Returns:
-    Edit distance. If a `max_ed` is set, the function will return -1 if the 
+    Edit distance. If a `max_ed` is set, the function will return max_ed+1 if the 
     edit distance is large than the maximum.
     """
-    try:
-        assert len(word1) == len(word2), "The input strings must have same length!"
-    except AssertionError as e:
-        print(f'Error:{e}')
-        sys.exit(1)
-    cdef int max_ed_c
-    max_ed_c = max_ed if max_ed else max(len(word1), len(word2))
+    l1 = len(word1)
+    l2 = len(word2)
+    if l1 > l2: # word2 always need to be longer or equal length 
+        word1, word2, l1, l2 = word2, word1, l2, l1
     
+    cdef int max_ed_c
+    max_ed_c = min(max_ed,l2) if max_ed else l2
     cdef bytes w1 = word1.encode('utf-8')
     cdef bytes w2 = word2.encode('utf-8')
     return edit_distance_c(w1, w2, max_ed_c, check_mat)

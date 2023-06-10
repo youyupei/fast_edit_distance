@@ -1,72 +1,56 @@
-# import time,sys
-# import pandas as pd
-# from edit_distance_cython import edit_distance as my_ed
-# from Levenshtein import distance as ed
-
-# test_bc = pd.read_csv('~/vol_data/github_repo/shimlab/BLAZE/test/putative_bc.csv')
-# test_bc = list(test_bc.putative_bc.dropna())[:5000]
-# test_bc = [x for x in test_bc]
-
-
-# start_time = time.time()
-# count = 0
-# for i in range(len(test_bc)):
-#     for j in range(i+1, len(test_bc)):
-#         if ed(test_bc[i], test_bc[j]) <= 16:
-#             count += 1
-# end_time = time.time()
-
-# runtime = end_time - start_time
-# print("Levenshtein package: Runtime: ", runtime, "Result: ", count)
-
-# start_time = time.time()
-# count = 0
-# for i in range(len(test_bc)):
-#     for j in range(i+1, len(test_bc)):
-#         if my_ed(test_bc[i], test_bc[j], 16) > -1:
-#             count += 1
-# end_time = time.time()
-
-# runtime = end_time - start_time
-# print("My ED implementation: Runtime: ", runtime, "Result: ", count)
-
-
-## example
-
-# test_bc = pd.read_csv('~/vol_data/github_repo/shimlab/BLAZE/test/putative_bc.csv')
-# test_bc = list(test_bc.putative_bc.dropna())[:2000]
-
-# start_time = time.time()
-# count = 0
-# for i in range(len(test_bc)):
-#     for j in range(i+1, len(test_bc)):
-#         ed_other = ed(test_bc[i], test_bc[j])
-#         ed_my = my_ed(test_bc[i], test_bc[j], 16)
-#         if (ed_my != ed_other and ed_my != -1) or (ed_my == -1 and ed_other<=16):
-#             print(test_bc[i], test_bc[j],ed_my,ed_other)
-#             count += 1
-# end_time = time.time()
-
-a = 'fsffvfdsbbdfvvdavavavavavavaa'
-b = 'fvdaabavvvvvadvdvavavadfsfsdafvvav'
-
+import time
+import numpy as np
 import fast_edit_distance 
 import Levenshtein
-import timeit
-
-fast_edit_distance.edit_distance(a, b)
 
 
 
-# # Measure the execution time
-# execution_time = timeit.timeit(func, number=10000)
-# # Print the execution time
-# print("Execution time (fast_edit_distance):", execution_time)
+def random_seq_generator():
+    while True:
+        yield ''.join(np.random.choice(['A', 'G', "C", 'T'],  size=np.random.randint(20,50)))
+rand_seq = random_seq_generator()
+print("Runtime test no cutoff(1_000_000 iteration):")
+np.random.seed(2023)
+start_time = time.time()
+a = next(rand_seq)
+b = next(rand_seq)
+l_ed = []
+for i in range(1_000_000):
+    l_ed.append(Levenshtein.distance(a, b))
+end_time = time.time()
+print(f"Levenshtein.distance (no cutoff): {end_time - start_time}" )
 
-# def func():
-#     Levenshtein.distance(a, b)
+np.random.seed(2023)
+start_time = time.time()
+a = next(rand_seq)
+b = next(rand_seq)
+fast_ed = []
+for i in range(1_000_000):
+    fast_ed.append(fast_edit_distance.edit_distance(a, b))
+end_time = time.time()
+print(f"fast_edit_distance.edit_distance (no cutoff): { end_time - start_time}")
+print(" Result consistant?")
+print("No!" if any(np.array(l_ed) != np.array(fast_ed)) else "Yes!")
 
-# # Measure the execution time
-# execution_time = timeit.timeit(func, number=10000)
-# # Print the execution time
-# print("Execution time (Levenshtein):", execution_time)
+print("Runtime test with cutoff 5 (1_000_000 iteration):")
+np.random.seed(2023)
+start_time = time.time()
+a = next(rand_seq)
+b = next(rand_seq)
+l_ed = []
+for i in range(1_000_000):
+    l_ed.append(Levenshtein.distance(a, b, score_cutoff=5))
+end_time = time.time()
+print(f"Levenshtein.distance (no cutoff): {end_time - start_time}" )
+
+np.random.seed(2023)
+start_time = time.time()
+a = next(rand_seq)
+b = next(rand_seq)
+fast_ed = []
+for i in range(1_000_000):
+    fast_ed.append(fast_edit_distance.edit_distance(a, b, 5))
+end_time = time.time()
+print(f"fast_edit_distance.edit_distance (no cutoff): { end_time - start_time}")
+print(" Result consistant?")
+print("No!" if any(np.array(l_ed) != np.array(fast_ed)) else "Yes!")
