@@ -19,7 +19,8 @@ int edit_distance_c(char* word1, char* word2, int max_ed, int check_mat) {
     int infi = max_ed * 10;
     int m = strlen(word1);
     int n = strlen(word2);
-
+    printf(" %d\n", m);
+    printf(" %d\n", n);
     assert(m == n && "the length of the two word have to be the same");
 
     int bandwidth = (max_ed / 2) * 2 + 1;
