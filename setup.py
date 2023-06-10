@@ -1,0 +1,8 @@
+from distutils.core import setup
+from Cython.Build import cythonize
+
+setup(
+    name="fast_edit_distance",
+    version="1.0",
+    ext_modules=cythonize("edit_distance_cython.pyx"),
+)
