@@ -1,4 +1,4 @@
-# fast_edit_distance
+# Fast calculation of Edit Distance (ED)
 A implementation of edit distance with improved runtime. Implemented using C and cython.
 
 ## Highlight:
