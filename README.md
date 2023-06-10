@@ -20,3 +20,15 @@ from fast_edit_distance import edit_distance
 edit_distance(string1, string2, max_ed=5)
 ```
 
+## Compare with [Levenshtein.distance](https://maxbachmann.github.io/Levenshtein/levenshtein.html#distance)
+The `fast_edit_distance.edit_distance` has the same function as  [Levenshtein.distance](https://maxbachmann.github.io/Levenshtein/levenshtein.html#distance) with significantly improved runtime. Especially when people need to identied pair of strings whose ED are smaller than a number (set `max_ed` in fast_edit_distance.edit_distance). Here is the runtime test with some random sequence (Run the [test/test.py](test/test.py) to reproduce this comparison):
+```
+Runtime test with no max ed cutof (1_000_000 iteration):
+Levenshtein.distance: 51.59s
+fast_edit_distance.edit_distance: 14.08s
+
+Runtime test with max ed cutoff 5 (1_000_000 iteration):
+Levenshtein.distance: 51.59s
+fast_edit_distance.edit_distance: 0.90s
+
+```
