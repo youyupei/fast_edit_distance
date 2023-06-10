@@ -8,10 +8,10 @@ to find the most similar item in a long list, you could set a maximum edit dista
 a fast search.
 
 ## Installation:
-
+```
 python3 setup.py build
 python3 setup.py install --user
-
+```
 ## Usage:
 ```
 from fast_edit_distance import edit_distance
