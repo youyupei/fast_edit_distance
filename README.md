@@ -8,7 +8,14 @@ to find the most similar item in a long list, you could set a maximum edit dista
 a fast search.
 
 ## Installation:
+Install using pip:
 ```
+pip install fast-edit-distance
+```
+or build from sourch
+```
+git clone https://github.com/youyupei/fast_edit_distance.git
+cd fast_edit_distance
 python3 setup.py build
 python3 setup.py install --user
 ```
