@@ -23,8 +23,8 @@ int edit_distance_c(char* word1, char* word2, int max_ed, int check_mat) {
     //printf("%d\n", bandwidth);
     int n_col = bandwidth + 2; // add two col as boundary col
     int n_row = m + 1;// add one row as boundary col
-    int start_col = (n_col + 1 +m-n)/2;
-    int end_col = (n_col + 1 +n-m)/2;
+    int start_col = (n_col + 1 +m-n)/2 -1 ;
+    int end_col = (n_col + 1 +n-m)/2-1;
 
     // edit distance
     int cost_indel = 1;
