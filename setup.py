@@ -12,7 +12,7 @@ from Cython.Build import cythonize
 
 setup(
     name='fast_edit_distance',
-    version='1.0.0',
+    version='1.0.1',
     author='Yupei You',
     author_email="youyupei@gmail.com",
     description='Implementation of edit distance calculation.',
