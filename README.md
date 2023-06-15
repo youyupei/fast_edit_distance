@@ -12,7 +12,7 @@ Install using pip:
 ```
 pip install fast-edit-distance
 ```
-or build from sourch
+or build from source
 ```
 git clone https://github.com/youyupei/fast_edit_distance.git
 cd fast_edit_distance
