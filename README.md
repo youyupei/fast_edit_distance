@@ -1,3 +1,6 @@
+![](https://img.shields.io/pypi/v/fast-edit-distance)
+![](https://img.shields.io/pypi/dm/fast-edit-distance?label=PyPI%20Downloads)
+
 # Fast calculation of Edit Distance (ED)
 A implementation of edit distance with improved runtime. Implemented using C and cython.
 
