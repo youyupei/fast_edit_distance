@@ -18,9 +18,6 @@ jobs:
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.15.0
-        env:
-          CIBW_BEFORE_BUILD: pip install Cython
-
 
       - uses: actions/upload-artifact@v3
         with:
