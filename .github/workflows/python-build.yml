@@ -53,6 +53,9 @@ jobs:
           path: dist
           merge-multiple: true
 
+      - name: Update pkginfo to avoid https://github.com/pypa/twine/issues/1059
+        run: pip install -U pkginfo
+
       - uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: ${{ secrets.PYPI_USERNAME }}
