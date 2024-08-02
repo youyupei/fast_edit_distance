@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm", "Cython"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "fast_edit_distance"
+authors = [
+    {name = "Yupei You", email = "youyupei@gmail.com"},
+]
+description = "Implementation of edit distance calculation."
+urls.Source = "https://github.com/youyupei/fast_edit_distance"
+license = { text = "MIT" }
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dynamic = ["version"]
+dependencies = [
+    "cython",
+]
+
+
+[tool.setuptools_scm]
