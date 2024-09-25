@@ -9,7 +9,7 @@ authors = [
     {name = "Yupei You", email = "youyupei@gmail.com"},
 ]
 description = "Implementation of edit distance calculation."
-urls.Source = "https://github.com/youyupei/fast_edit_distance"
+urls = { Source = "https://github.com/youyupei/fast_edit_distance" }
 license = { text = "MIT" }
 readme = "README.md"
 classifiers = [
