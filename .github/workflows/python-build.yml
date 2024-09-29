@@ -15,9 +15,24 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # this is needed to get the tags
+            # Used to host cibuildwheel
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          
+#       - name: Install setuptools_scm and update seuptools
+#         run: pip install setuptools_scm setuptools; pip install --upgrade setuptools
+# 
+#       - name: Get package version from setuptools_scm
+#         run: python -m setuptools_scm
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.21.1
+
+      - name: check git status
+        run: git status
 
       - uses: actions/upload-artifact@v4
         with:
@@ -28,12 +43,27 @@ jobs:
     name: Build source distribution
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # this is needed to get the tags
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install setuptools_scm and update seuptools
+        run: pip install setuptools_scm setuptools; pip install --upgrade setuptools
+
+      - name: Get package version from setuptools_scm
+        run: python -m setuptools_scm; git tag -l
 
       - name: Build sdist
         run: pipx run build --sdist
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload sdist artifact
+        uses: actions/upload-artifact@v4
         with:
           name: cibw-sdist
           path: dist/*.tar.gz
